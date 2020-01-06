@@ -27,7 +27,7 @@ class TrajectoryLineSegment(ClusterCandidate):
         self.id = id
 
     # 获取邻域线段数量
-    def get_num_neighbors(self, num_neighbors):
+    def get_num_neighbors(self):
         if self.num_neighbors == -1:
             raise Exception("haven't counted num neighbors yet")
         return self.num_neighbors

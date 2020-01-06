@@ -1,6 +1,6 @@
 from coordinate import filter_by_indices, consecutive_item_iterator_getter, \
     get_trajectory_line_segments_from_points_iterable, \
-    get_all_trajectory_line_segments_iterable_from_all_points_iterable, whole_enchilada
+    get_all_trajectory_line_segments_iterable_from_all_points_iterable
 from distance_functions import perpendicular_distance
 from generic_dbscan import ClusterFactory, ClusterCandidateIndex, dbscan, ClusterCandidate
 from geometry import Point, LineSegment

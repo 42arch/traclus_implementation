@@ -6,6 +6,28 @@ from traclus_dbscan import BestAvailableClusterCandidateIndex, TrajectoryLineSeg
 
 def run_traclus(point_iterable_list, epsilon, min_neighbors, min_num_trajectories_in_cluster, min_vertical_lines,
                 min_prev_dist):
+    # cleaned_input = []
+    # for traj in map(lambda l: with_spikes_removed(l), point_iterable_list):
+    #     cleaned_traj = []
+    #     if len(traj) > 1:
+    #         prev = traj[0]
+    #         cleaned_traj.append(traj[0])
+    #         for pt in traj[1:]:
+    #             if prev.distance_to(pt) > 0.0:
+    #                 cleaned_traj.append(pt)
+    #                 prev = pt
+    #         if len(cleaned_traj) > 1:
+    #             cleaned_input.append(cleaned_traj)
+    # cleaned_input = clean_trajectories(point_iterable_list=point_iterable_list)
+    return almost_done(point_iterable_list=point_iterable_list, epsilon=epsilon, min_neighbors=min_neighbors,
+                       min_num_trajectories_in_cluster=min_num_trajectories_in_cluster,
+                       min_vertical_lines=min_vertical_lines,
+                       min_prev_dist=min_prev_dist, clusters_hook=None)
+    # return get_all_trajectory_line_segments_iterable_from_all_points_iterable(point_iterable_list=cleaned_input)
+
+
+def clean_trajectories(point_iterable_list):
+    """ 轨迹数据清理 """
     cleaned_input = []
     for traj in map(lambda l: with_spikes_removed(l), point_iterable_list):
         cleaned_traj = []
@@ -18,19 +40,10 @@ def run_traclus(point_iterable_list, epsilon, min_neighbors, min_num_trajectorie
                     prev = pt
             if len(cleaned_traj) > 1:
                 cleaned_input.append(cleaned_traj)
-
-    return almost_done(point_iterable_list=cleaned_input, epsilon=epsilon, min_neighbors=min_neighbors,
-                       min_num_trajectories_in_cluster=min_num_trajectories_in_cluster,
-                       min_vertical_lines=min_vertical_lines,
-                       min_prev_dist=min_prev_dist)
-    # return get_all_trajectory_line_segments_iterable_from_all_points_iterable(point_iterable_list=cleaned_input)
+    return cleaned_input
 
 
 def with_spikes_removed(trajectory):
-    """ 轨迹清理
-    :param trajectory:
-    :return:
-    """
     if len(trajectory) <= 2:
         return trajectory[:]
 
@@ -45,12 +58,16 @@ def with_spikes_removed(trajectory):
 
 
 def almost_done(point_iterable_list, epsilon, min_neighbors, min_num_trajectories_in_cluster, min_vertical_lines,
-                min_prev_dist):
+                min_prev_dist, clusters_hook):
+    cleaned_input = clean_trajectories(point_iterable_list=point_iterable_list)
     # 1. 计算分段后 的轨迹线段集合
     all_traj_segs_iter_from_all_points = get_all_trajectory_line_segments_iterable_from_all_points_iterable(
-        point_iterable_list)
+        point_iterable_list=cleaned_input)
     # 2. 对轨迹线段集合 计算， 得到轨迹簇
+
     clusters = get_cluster_iterable_from_all_points_iterable(all_traj_segs_iter_from_all_points, epsilon, min_neighbors)
+    if clusters_hook:
+        clusters_hook(clusters)
     # return clusters
 
     # 3. 获得代表性轨迹

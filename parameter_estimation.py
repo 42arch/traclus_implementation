@@ -1,27 +1,25 @@
 import math
 import random
-from abc import ABC
 from functools import reduce
-
 from simanneal import Annealer
-
 from coordinate import almost_done
 
 
 def find_entropy(all_line_segs):
-    def _get_neighors(seg):
-        return seg.get_num_neighbor() + 1
+    def _get_neighbors(seg):
+        return seg.get_num_neighbors() + 1
 
-    sum_total_neighborhood_size = reduce(lambda x, y: x + y, map(_get_neighors, all_line_segs))
+    sum_total_neighborhood_size = reduce(lambda x, y: x + y, map(_get_neighbors, all_line_segs))
 
     def _probability_func(line_seg, sum_total_neighborhood_size):
-        return _get_neighors(line_seg) * 1.0 / sum_total_neighborhood_size
+        return _get_neighbors(line_seg) * 1.0 / sum_total_neighborhood_size
 
     def _single_entry_entropy(line_seg):
         prob_value = _probability_func(line_seg, sum_total_neighborhood_size)
         return prob_value * math.log(prob_value, 2)
 
     return -1 * reduce(lambda x, y: x + y, map(_single_entry_entropy, all_line_segs))
+
 
 class TraclusSimulatedAnnealingState:
     def __init__(self, input_trajectories, epsilon):
@@ -60,7 +58,8 @@ class TraclusSimulatedAnnealer(Annealer):
         Annealer.__init__(self, initial_state=initial_state)
 
     def move(self):
-        new_epsilon = max(0.0, self.state.get_epsilon() + random.uniform(-self.max_epsilon_step_change, self.max_epsilon_step_change))
+        new_epsilon = max(0.0, self.state.get_epsilon() + random.uniform(-self.max_epsilon_step_change,
+                                                                         self.max_epsilon_step_change))
         self.state = TraclusSimulatedAnnealingState(self.state.input_trajectories, new_epsilon)
 
     def energy(self):
@@ -69,6 +68,6 @@ class TraclusSimulatedAnnealer(Annealer):
                     min_neighbors=0,
                     min_num_trajectories_in_cluster=1,
                     min_vertical_lines=100,
-                    min_prev_dist=100)
+                    min_prev_dist=100,
+                    clusters_hook=self.state.compute_entropy)
         return self.state.get_entropy()
-

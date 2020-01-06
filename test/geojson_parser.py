@@ -4,9 +4,10 @@
 
 import json
 
-from coordinate import get_all_trajectory_line_segments_iterable_from_all_points_iterable, whole_enchilada, \
+from coordinate import get_all_trajectory_line_segments_iterable_from_all_points_iterable, \
     get_trajectory_line_segments_from_points_iterable, run_traclus
 from geometry import Point, LineSegment
+from parameter_estimation import TraclusSimulatedAnnealingState, TraclusSimulatedAnnealer
 from partition2 import call_partition_trajectory
 
 
@@ -20,7 +21,6 @@ def read_data_from_file(file_path):
 
 def get_trajectories_from_data(data_dict):
     """
-
     :param data_dict:
     :return: 轨迹列表[轨迹点列表]
     """
@@ -115,15 +115,28 @@ def do_test():
     save_data_to_file("geojson22.txt", geo)
 
 
+def simulate_annealing():
+    input_trajectories = read_campus_data()
+    # input_trajectories = [[Point(0, 0), Point(0, 1)], [Point(2, 0), Point(2, 1)], [Point(3, 0), Point(3, 1)]]
+    initial_state = TraclusSimulatedAnnealingState(input_trajectories=input_trajectories, epsilon=0.0)
+    traclus_sim_anneal = TraclusSimulatedAnnealer(initial_state=initial_state, max_epsilon_step_change=0.000001)
+    traclus_sim_anneal.updates = 0
+    traclus_sim_anneal.steps = 20
+    best_state, best_energy = traclus_sim_anneal.anneal()
+    print(best_state.get_epsilon())
+
+
 if __name__ == '__main__':
-    point_iter_list = read_campus_data()
-    print(point_iter_list)
+    simulate_annealing()
 
-    re = run_traclus(point_iterable_list=point_iter_list, epsilon=0.00016, min_neighbors=2,
-                     min_num_trajectories_in_cluster=3,
-                     min_vertical_lines=2, min_prev_dist=0.0002)
-    # re = run_traclus(point_iterable_list=point_iter_list, epsilon=0.00016, min_neighbors=2)
-    print(re)
-
-    geo = convert_trajectories_to_geojson('point_iter_list', re)
-    print(geo)
+    # point_iter_list = read_campus_data()
+    # print(point_iter_list)
+    #
+    # re = run_traclus(point_iterable_list=point_iter_list, epsilon=0.00016, min_neighbors=2,
+    #                  min_num_trajectories_in_cluster=3,
+    #                  min_vertical_lines=2, min_prev_dist=0.0002)
+    # # re = run_traclus(point_iterable_list=point_iter_list, epsilon=0.00016, min_neighbors=2)
+    # print(re)
+    #
+    # geo = convert_trajectories_to_geojson('point_iter_list', re)
+    # print(geo)
