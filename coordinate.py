@@ -1,29 +1,23 @@
-from generic_dbscan import dbscan
+import copy
+
 from line_segment_averaging import get_representative_line_from_trajectory_line_segments
 from partition2 import call_partition_trajectory, get_line_segment_from_points
-from traclus_dbscan import BestAvailableClusterCandidateIndex, TrajectoryLineSegmentFactory, TrajectoryClusterFactory
+from traclus_dbscan import BestAvailableClusterCandidateIndex, TrajectoryLineSegmentFactory, TrajectoryClusterFactory, \
+    dbscan
 
 
-def run_traclus(point_iterable_list, epsilon, min_neighbors, min_num_trajectories_in_cluster, min_vertical_lines,
-                min_prev_dist):
-    # cleaned_input = []
-    # for traj in map(lambda l: with_spikes_removed(l), point_iterable_list):
-    #     cleaned_traj = []
-    #     if len(traj) > 1:
-    #         prev = traj[0]
-    #         cleaned_traj.append(traj[0])
-    #         for pt in traj[1:]:
-    #             if prev.distance_to(pt) > 0.0:
-    #                 cleaned_traj.append(pt)
-    #                 prev = pt
-    #         if len(cleaned_traj) > 1:
-    #             cleaned_input.append(cleaned_traj)
-    # cleaned_input = clean_trajectories(point_iterable_list=point_iterable_list)
-    return almost_done(point_iterable_list=point_iterable_list, epsilon=epsilon, min_neighbors=min_neighbors,
-                       min_num_trajectories_in_cluster=min_num_trajectories_in_cluster,
-                       min_vertical_lines=min_vertical_lines,
-                       min_prev_dist=min_prev_dist, clusters_hook=None)
-    # return get_all_trajectory_line_segments_iterable_from_all_points_iterable(point_iterable_list=cleaned_input)
+def with_spikes_removed(trajectory):
+    if len(trajectory) <= 2:
+        return trajectory[:]
+
+    spikes_removed = [trajectory[0]]
+    cur_index = 1
+    while cur_index < len(trajectory) - 1:
+        if trajectory[cur_index - 1].distance_to(trajectory[cur_index + 1]) > 0.0:
+            spikes_removed.append(trajectory[cur_index])
+        cur_index += 1
+    spikes_removed.append(trajectory[cur_index])
+    return spikes_removed
 
 
 def clean_trajectories(point_iterable_list):
@@ -43,32 +37,53 @@ def clean_trajectories(point_iterable_list):
     return cleaned_input
 
 
-def with_spikes_removed(trajectory):
-    if len(trajectory) <= 2:
-        return trajectory[:]
-
-    spikes_removed = [trajectory[0]]
-    cur_index = 1
-    while cur_index < len(trajectory) - 1:
-        if trajectory[cur_index - 1].distance_to(trajectory[cur_index + 1]) > 0.0:
-            spikes_removed.append(trajectory[cur_index])
-        cur_index += 1
-    spikes_removed.append(trajectory[cur_index])
-    return spikes_removed
+# 单独执行轨迹分段，返回分段结果
+def get_partitioning_result(point_iterable_list):
+    cleaned_input = clean_trajectories(point_iterable_list=point_iterable_list)
+    partitioning_result = get_all_trajectory_line_segments_iterable_from_all_points_iterable(
+        point_iterable_list=cleaned_input)
+    return partitioning_result
 
 
-def almost_done(point_iterable_list, epsilon, min_neighbors, min_num_trajectories_in_cluster, min_vertical_lines,
+# 单独执行轨迹聚类，返回分段结果和聚类结果（簇集合）
+def get_clustering_result(point_iterable_list, epsilon, min_neighbors):
+    partitioning_result = get_partitioning_result(point_iterable_list)
+    clusters = get_cluster_iterable_from_all_points_iterable(cluster_candidates=partitioning_result, epsilon=epsilon,
+                                                             min_neighbors=min_neighbors)
+    return partitioning_result, clusters
+
+
+# 执行全部步骤，返回分段结果，聚类结果和代表轨迹
+def get_rep_line_result(point_iterable_list, epsilon, min_neighbors, min_num_trajectories_in_cluster,
+                        min_vertical_lines,
+                        min_prev_dist):
+    partitioning_result, clusters = get_clustering_result(point_iterable_list=point_iterable_list, epsilon=epsilon,
+                                                          min_neighbors=min_neighbors)
+    partitioning_result_origin = copy.deepcopy(partitioning_result)
+    clusters_origin = copy.deepcopy(clusters)
+
+    rep_lines = get_representative_lines_from_trajectory(clusters=clusters,
+                                                         min_num_trajectories_in_cluster=min_num_trajectories_in_cluster,
+                                                         min_vertical_lines=min_vertical_lines,
+                                                         min_prev_dist=min_prev_dist)
+    return partitioning_result_origin, clusters_origin, rep_lines
+
+
+# 执行轨迹分段全部操作，返回代表性轨迹集合
+def run_traclus(point_iterable_list, epsilon, min_neighbors, min_num_trajectories_in_cluster, min_vertical_lines,
                 min_prev_dist, clusters_hook):
+    # return get_rep_line_result(point_iterable_list=point_iterable_list, epsilon=epsilon, min_neighbors=min_neighbors,
+    #                            min_num_trajectories_in_cluster=min_num_trajectories_in_cluster,
+    #                            min_vertical_lines=min_vertical_lines,
+    #                            min_prev_dist=min_prev_dist, clusters_hook=None)
     cleaned_input = clean_trajectories(point_iterable_list=point_iterable_list)
     # 1. 计算分段后 的轨迹线段集合
     all_traj_segs_iter_from_all_points = get_all_trajectory_line_segments_iterable_from_all_points_iterable(
         point_iterable_list=cleaned_input)
     # 2. 对轨迹线段集合 计算， 得到轨迹簇
-
     clusters = get_cluster_iterable_from_all_points_iterable(all_traj_segs_iter_from_all_points, epsilon, min_neighbors)
     if clusters_hook:
         clusters_hook(clusters)
-    # return clusters
 
     # 3. 获得代表性轨迹
     rep_lines = get_representative_lines_from_trajectory(clusters=clusters,
@@ -86,12 +101,6 @@ def get_cluster_iterable_from_all_points_iterable(cluster_candidates, epsilon, m
     return clusters
 
 
-# def get_representative_lines_from_trajectory(trajectory_line_segs, min_vertical_lines, min_prev_dist):
-#     return get_representative_line_from_trajectory_line_segments(trajectory_line_segments=trajectory_line_segs,
-#                                                                  min_vertical_lines=min_vertical_lines,
-#                                                                  min_prev_dist=min_prev_dist)
-
-
 def get_representative_lines_from_trajectory(clusters, min_num_trajectories_in_cluster, min_vertical_lines,
                                              min_prev_dist):
     rep_lines = []
@@ -105,20 +114,16 @@ def get_representative_lines_from_trajectory(clusters, min_num_trajectories_in_c
     return rep_lines
 
 
-def partition_trajectory():
-    pass
-
-
 def get_all_trajectory_line_segments_iterable_from_all_points_iterable(point_iterable_list):
-    """ 从点集合 的集合中获取全部 分段后的 轨迹线段
+    """ 执行分段， 从点集合 的集合中获取全部 分段后的 轨迹线段
     :param point_iterable_list:  轨迹线 点集合（一条轨迹） 的 集合
     :return: list [TrajectoryLineSegment...]
     """
     out = []
     cur_trajectory_id = 0
     for point_trajectory in point_iterable_list:
-        line_segments = get_trajectory_line_segments_from_points_iterable(point_iterable=point_trajectory,
-                                                                          trajectory_id=cur_trajectory_id)
+        line_segments = get_one_trajectory_line_segments_from_points_iterable(point_iterable=point_trajectory,
+                                                                              trajectory_id=cur_trajectory_id)
         temp = 0
         for traj_seg in line_segments:
             out.append(traj_seg)
@@ -129,9 +134,9 @@ def get_all_trajectory_line_segments_iterable_from_all_points_iterable(point_ite
     return out
 
 
-def get_trajectory_line_segments_from_points_iterable(point_iterable, trajectory_id):
+def get_one_trajectory_line_segments_from_points_iterable(point_iterable, trajectory_id):
     """ 从一组原始点 集合中获取 一条分段后的轨迹
-    :param point_iterable:
+    :param point_iterable: 点列表
     :param trajectory_id:
     :return: TrajectoryLineSegment
     """

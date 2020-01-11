@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5902d410-5cce-48f9-886d-9fb8d435f87b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/processed_tragectory_connectiong.py" beforeDir="false" afterPath="$PROJECT_DIR$/processed_tragectory_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coordinate.py" beforeDir="false" afterPath="$PROJECT_DIR$/coordinate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generic_dbscan.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/geometry.py" beforeDir="false" afterPath="$PROJECT_DIR$/geometry.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parameter_estimation.py" beforeDir="false" afterPath="$PROJECT_DIR$/parameter_estimation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partition2.py" beforeDir="false" afterPath="$PROJECT_DIR$/partition2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/geojson.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/geojson_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/geojson_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/partition_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/traclus_dbscan.py" beforeDir="false" afterPath="$PROJECT_DIR$/traclus_dbscan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trajectory.py" beforeDir="false" afterPath="$PROJECT_DIR$/trajectory.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,8 +34,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1Uj9lFq1IWhlKdcrg1Xo9fyzNiQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/test/excel_calc_average" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -45,7 +56,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.geojson_parser">
+  <component name="RunManager" selected="Python.test">
     <configuration name="geojson_parser" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="轨迹聚类算法" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -59,27 +70,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/geojson_parser.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="linked_list_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="轨迹聚类算法" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/linked_list_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -130,6 +120,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="轨迹聚类算法" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="轨迹聚类算法" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,11 +164,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.geojson_parser" />
         <item itemvalue="Python.partition_test" />
         <item itemvalue="Python.utils" />
         <item itemvalue="Python.read_data_from_file" />
-        <item itemvalue="Python.linked_list_test" />
       </list>
     </recent_temporary>
   </component>
@@ -179,7 +190,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

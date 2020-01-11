@@ -2,7 +2,7 @@ import math
 import random
 from functools import reduce
 from simanneal import Annealer
-from coordinate import almost_done
+from coordinate import get_rep_line_result
 
 
 def find_entropy(all_line_segs):
@@ -63,11 +63,11 @@ class TraclusSimulatedAnnealer(Annealer):
         self.state = TraclusSimulatedAnnealingState(self.state.input_trajectories, new_epsilon)
 
     def energy(self):
-        almost_done(point_iterable_list=self.state.get_input_trajectories(),
-                    epsilon=self.state.get_epsilon(),
-                    min_neighbors=0,
-                    min_num_trajectories_in_cluster=1,
-                    min_vertical_lines=100,
-                    min_prev_dist=100,
-                    clusters_hook=self.state.compute_entropy)
+        get_rep_line_result(point_iterable_list=self.state.get_input_trajectories(),
+                            epsilon=self.state.get_epsilon(),
+                            min_neighbors=0,
+                            min_num_trajectories_in_cluster=1,
+                            min_vertical_lines=100,
+                            min_prev_dist=100,
+                            clusters_hook=self.state.compute_entropy)
         return self.state.get_entropy()

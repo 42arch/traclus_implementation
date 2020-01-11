@@ -72,8 +72,6 @@ def partition_cost(trajectory_line_segs, low, high):
     :param trajectory_line_segs:
     :param low:
     :param high:
-    :param model_cost_func:
-    :param encoding_cost_func:
     :return:
     """
     if low >= high:
@@ -103,8 +101,7 @@ def no_partition_cost(trajectory_line_segs, low, high):
 
 
 def model_cost_func(partition_line):
-    """
-    L(H): 描述压缩模型所需要的长度
+    """ L(H): 描述压缩模型所需要的长度
     :param partition_line:
     :return:
     """
@@ -112,14 +109,11 @@ def model_cost_func(partition_line):
 
 
 def encoding_cost_func(trajectory_line_segs, low, high, partition_line):
-    """
-    L(D|H): 描述利用压缩模型所编码的数据所需要的长度
+    """  L(D|H): 描述利用压缩模型所编码的数据所需要的长度
     :param trajectory_line_segs:
     :param low:
     :param high:
     :param partition_line:
-    :param angular_dist_func:
-    :param perpendicular_dist_func:
     :return:
     """
     total_angular = 0.0
@@ -132,8 +126,7 @@ def encoding_cost_func(trajectory_line_segs, low, high, partition_line):
 
 
 def get_line_segment_from_points(point_a, point_b):
-    """
-    从两点中得到一条线段
+    """  从两点中得到一条线段
     :param point_a: Point()
     :param point_b: Point()
     :return: LineSegment()
@@ -149,8 +142,7 @@ def get_trajectory_line_segment_iterator_adapter(iterator_getter, get_line_segme
 
 
 def get_trajectory_line_segment_iterator(list, low, high, get_line_segment_from_points_func):
-    """
-    从list[low, high]中得到一条轨迹线
+    """ 从list[low, high]中得到一条轨迹线
     :param list: 点列表 [Point(), ...]
     :param low:  起始位置
     :param high: 终止位置
@@ -162,7 +154,6 @@ def get_trajectory_line_segment_iterator(list, low, high, get_line_segment_from_
 
     line_segs = []
     cur_pos = low
-
     while cur_pos < high:
         line_segs.append(get_line_segment_from_points_func(list[cur_pos], list[cur_pos + 1]))
         cur_pos += 1
