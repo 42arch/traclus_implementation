@@ -1,0 +1,5 @@
+epsilon£º0.06
+min_neighbors: 8
+min_num_trajectories_in_cluster: 12
+min_vertical_lines: 4
+min_prev_dist: 0.01
