@@ -32,3 +32,8 @@
 
 ## THANKS
 
+https://github.com/apolcyn/traclus_impl
+
+https://github.com/luborliu/TraClusAlgorithm
+
+本项目大量参考了以上两个项目的代码。
