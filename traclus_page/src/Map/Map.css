@@ -1,0 +1,72 @@
+@import '~leaflet/dist/leaflet.css';
+@import '~antd/dist/antd.css';
+
+#map {
+  width: 100%;
+  /* height: 800px; */
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  /* align-content: center; */
+  /* align-items: center; */
+}
+#mapDiv {
+  width: 80%;
+  height: 100%;
+}
+#handleDiv {
+  width: 20%;
+  height: 100%;
+  /* background: rgb(170, 42.5 , 0); */
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.switch {
+  width: 10px;
+  height: 10px;
+  /* background-color: red; */
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  z-index: 9999;
+}
+
+.ant-collapse-icon-position-left {
+  width: 350px;
+}
+.ant-collapse-content-box {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+#argumentsPanel .ant-form-item-children {
+  display: flex;
+  flex-direction: column;
+}
+#argumentsPanel .ant-collapse-content-box {
+  padding: 10px;
+}
+.ant-input-number {
+  width: 250px;
+}
+.ant-form-item {
+  margin-bottom: 1.5px;
+}
+#handleContainer .ant-spin-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#confirmButton {
+  margin-top: 1rem;
+  width: 10rem;
+}
+#handleButton {
+  margin-top: 1rem;
+  width: 10rem;
+}
