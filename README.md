@@ -14,7 +14,7 @@
 
 直接进入`traclus_page/dist`目录下，浏览器打开`index.html`文件即可
 
-或者在`traclus_page`目录下，执行`npm install`安装前端依赖，再执行`npm build`，然后在`dist`目录下找到`index.html`打开
+或者在`traclus_page`目录下，执行`npm install`安装前端依赖，再执行`npm build`，然后在`build`目录下找到`index.html`打开
 
 ### 测试数据
 
