@@ -1,0 +1,15 @@
+.app-header {
+  background-color: #595959;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #2f54eb;
+}
+span#title {
+  font-size: 1.8rem;
+  margin-left: 1rem;
+  color: #fafafa;
+}

@@ -1,0 +1,20 @@
+@import '~leaflet/dist/leaflet.css';
+@import '~antd/dist/antd.css';
+
+.app {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  height: 3.2rem;
+}
+
+.content {
+  width: 100%;
+  height: calc(100% - 3.2rem);
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; */
+}
