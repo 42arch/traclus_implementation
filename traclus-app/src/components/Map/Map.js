@@ -118,7 +118,7 @@ class Map extends React.Component {
     let style = {'color': 'yellow', 'weight': 2, 'opacity': 1}
     let repLineLayer = L.geoJSON(data, style)
     repLineLayer.bindPopup(lyr => {
-      return `<h3>详细信息</h3>`
+      return `<h3>代表轨迹</h3>`
     }).addTo(this.map)
     this.opLayers.push(repLineLayer)
   }

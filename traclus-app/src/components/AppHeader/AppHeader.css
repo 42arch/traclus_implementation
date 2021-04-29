@@ -1,6 +1,6 @@
 .app-header {
   background-color: #595959;
-  padding: 0.5rem;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: baseline;
