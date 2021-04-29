@@ -1,0 +1,13 @@
+aniso8601==9.0.1
+click==7.1.2
+Flask==1.1.2
+Flask-Cors==3.0.10
+Flask-RESTful==0.3.8
+Flask-Script==2.0.6
+itsdangerous==1.1.0
+Jinja2==2.11.3
+MarkupSafe==1.1.1
+pytz==2021.1
+simanneal==0.5.0
+six==1.15.0
+Werkzeug==1.0.1
