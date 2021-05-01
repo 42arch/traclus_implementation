@@ -2,6 +2,8 @@
 
 基于Python 3.7实现了轨迹聚类算法，并开发了一个包含前后端程序的DEMO。
 
+github: https://github.com/Esc4peFrom/TRACLUS_IMPLEMENTATION
+
 ## 使用
 
 ### 后端程序
