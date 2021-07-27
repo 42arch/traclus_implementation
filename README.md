@@ -1,8 +1,8 @@
 ## 关于
 
-基于Python 3.7实现了轨迹聚类算法，并开发了一个包含前后端程序的DEMO。
+基于Python 3.7实现了轨迹聚类算法，并基于Flask和React开发了一个包含前后端程序的DEMO。
 
-github: https://github.com/BlitzYouth/TRACLUS_IMPLEMENTATION
+github: https://github.com/explosionsinthesky/TRACLUS_IMPLEMENTATION
 
 ## 使用
 
@@ -14,9 +14,9 @@ github: https://github.com/BlitzYouth/TRACLUS_IMPLEMENTATION
 
 ### 前端
 
-直接进入`traclus-app/dist`目录下，浏览器打开`index.html`文件即可
+直接进入`traclus-app/build`目录下，浏览器打开`index.html`文件即可
 
-或者在`traclus-app`目录下，执行`yarn`安装前端依赖，再执行`yarn build`打包应用，然后在`build`目录下找到`index.html`打开
+或者在`traclus-app`目录下，执行`yarn`安装依赖，再执行`yarn build`打包应用，然后在`build`目录下找到`index.html`打开
 
 ### 测试数据
 
