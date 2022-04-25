@@ -2,7 +2,7 @@
 
 基于Python 3.7实现了轨迹聚类算法，并基于Flask和React开发了一个包含前后端程序的DEMO。
 
-github: https://github.com/explosionsinthesky/TRACLUS_IMPLEMENTATION
+github: https://github.com/rend42/TRACLUS_IMPLEMENTATION
 
 ## 使用
 
